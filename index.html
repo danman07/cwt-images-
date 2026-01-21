@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CWT Growth Roadmap - Scale & Clients</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0A100D;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 40px;
+    }
+
+
+    .slide {
+      width: 960px;
+      height: 540px;
+      margin: 0 auto;
+      display: flex;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+
+
+    /* CWT Color Palette */
+    .theme-dark { background: #0A100D; color: #f9fafb; }
+    .theme-accent { background: #A71A23; color: #f9fafb; }
+    .theme-card { background: #1a1a18; border: 1px solid rgba(167, 26, 35, 0.4); }
+
+
+    .col { flex-direction: column; }
+    .row { flex-direction: row; }
+    .center { justify-content: center; align-items: center; text-align: center; }
+    .between { justify-content: space-between; align-items: center; }
+    .start { align-items: flex-start; }
+    .p-16 { padding: 4rem; }
+    .p-12 { padding: 3rem; }
+    .p-8 { padding: 2rem; }
+    .gap-lg { gap: 2rem; }
+    .gap-md { gap: 1.5rem; }
+    .fill { flex: 1; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mt-8 { margin-top: 2rem; }
+
+
+    h1 { font-size: 3.75rem; font-weight: 700; line-height: 1.1; }
+    h2 { font-size: 2rem; font-weight: 700; line-height: 1.15; word-wrap: break-word; overflow-wrap: break-word; }
+    h3 { font-size: 1.75rem; font-weight: 600; line-height: 1.3; }
+    p { font-size: 1.125rem; line-height: 1.6; }
+    .text-sm { font-size: 0.875rem; }
+    .text-lg { font-size: 1.25rem; }
+
+
+    /* Title Slide */
+    .slide-title {
+      background: linear-gradient(135deg, #0A100D 0%, #1a1a18 100%);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+
+    .slide-title h1 {
+      color: #A71A23;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+
+
+    .slide-title .subtitle {
+      color: #D6D5C9;
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+
+    .slide-title .meta {
+      color: #B9BAA3;
+      font-size: 0.875rem;
+    }
+
+
+    /* Content Slides */
+    .slide-content {
+      background: linear-gradient(135deg, #0A100D 0%, #1a1a18 100%);
+      flex-direction: column;
+      padding: 3rem 3.5rem;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+
+    .slide-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+
+    .step-num {
+      width: 50px;
+      height: 50px;
+      background: #A71A23;
+      color: #f9fafb;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+
+    .slide-content h2 {
+      color: #D6D5C9;
+      flex: 1;
+    }
+
+
+    .slide-content p {
+      color: #D6D5C9;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+
+    .tag {
+      display: inline-block;
+      background: rgba(167, 26, 35, 0.15);
+      color: #A71A23;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(167, 26, 35, 0.4);
+      font-size: 0.8rem;
+      font-weight: 500;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      flex: 1;
+      align-content: start;
+    }
+
+
+    .col-card {
+      background: #1a1a18;
+      border: 1px solid rgba(167, 26, 35, 0.3);
+      padding: 2rem;
+      border-radius: 12px;
+    }
+
+
+    .col-card h3 {
+      color: #A71A23;
+      margin-bottom: 0.75rem;
+    }
+
+
+    .col-card p {
+      color: #D6D5C9;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+
+    /* Section Divider Slide */
+    .slide-section {
+      background: linear-gradient(135deg, #A71A23 0%, #851E19 100%);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    .slide-section h2 {
+      color: #f9fafb;
+      font-size: 3.75rem;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+
+    .slide-section p {
+      color: rgba(249, 250, 251, 0.8);
+      font-size: 1.25rem;
+      margin-top: 1rem;
+    }
+
+
+    /* Closing Slide */
+    .slide-closing {
+      background: linear-gradient(135deg, #0A100D 0%, #1a1a18 100%);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    .slide-closing h2 {
+      color: #A71A23;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+
+    .slide-closing p {
+      color: #D6D5C9;
+      font-size: 1.25rem;
+    }
+
+
+    /* Bullet Points */
+    ul {
+      list-style: none;
+      margin-left: 0;
+      overflow: hidden;
+    }
+
+
+    ul li {
+      color: #D6D5C9;
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+
+    ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #A71A23;
+      font-weight: 700;
+    }
+
+
+    /* 3 Column Grid */
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.2rem;
+      flex: 1;
+      align-content: start;
+    }
+
+
+    .grid-card {
+      background: #1a1a18;
+      border: 1px solid rgba(167, 26, 35, 0.25);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+
+    .grid-card h4 {
+      color: #A71A23;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+
+    .grid-card p {
+      color: #D6D5C9;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+
+    /* Accent Bar */
+    .accent-bar {
+      width: 100%;
+      height: 4px;
+      background: #A71A23;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- SLIDE 1: Title -->
+  <section class="slide slide-title" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, #0A100D 0%, #1a1a18 100%); color: #f9fafb;">
+    <h1 style="color: #A71A23; margin-bottom: 1rem; letter-spacing: 0.04em; font-size: 3.75rem; font-weight: 700;">CWT Growth Roadmap</h1>
+    <div style="color: #D6D5C9; font-size: 1.5rem; margin-bottom: 3rem;">Scale Digital Presence & Acquire More Clients</div>
+    <div style="color: #B9BAA3; font-size: 0.875rem;">CrispWisp Tales • Sports Films & Digital Campaigns</div>
+  </section>
+
+
+  <!-- SLIDE 2: Opportunity -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">1</div>
+      <h2>The Opportunity</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p><b>Why now?</b> We're 7th-ranked sports social media agency in India, but clients don't know it yet.</p>
+    <div class="two-col">
+      <div class="col-card">
+        <h3>Current State</h3>
+        <ul>
+          <li>No active Facebook</li>
+          <li>Weak Instagram presence</li>
+          <li>Website needs rebuild</li>
+          <li>Few warm leads</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h3>What to Do Next</h3>
+        <ul>
+          <li>Fix all platforms</li>
+          <li>Post 3–5 reels/week</li>
+          <li>Launch new website</li>
+          <li>Get 5–10 warm leads</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Low hanging fruit</span>
+      <span class="tag">Quick wins possible</span>
+      <span class="tag">High ROI</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 3: Section - Foundations -->
+  <section class="slide slide-section">
+    <h2>PHASE 1: Foundations</h2>
+    <p>Fix platforms, define brand, start content</p>
+  </section>
+
+
+  <!-- SLIDE 4: Platform Fix -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">2</div>
+      <h2>Fix Core Platforms</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p><b>Priority:</b> Make every touchpoint work & tell one story—"Speed + Story."</p>
+    <div class="three-col" style="margin-top: 1.5rem;">
+      <div class="grid-card">
+        <h4>Website</h4>
+        <p>New site. Show 10-min reel delivery. All Working links. All pages complete.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Instagram</h4>
+        <p>Post 3–5x/week. Focus on matchday + player stories. Clear CTA.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Facebook</h4>
+        <p>Revive dead page. Cross-post top reels. Pin best client work.</p>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Unified presence</span>
+      <span class="tag">Lightning delivery visible</span>
+      <span class="tag">Booking-ready</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 5: Brand Positioning -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">3</div>
+      <h2>Brand Assets & Story</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p><b>Single message across all platforms:</b> "Best sports social media agency in India. Speed + story. 10-min turnarounds."</p>
+    <div class="two-col">
+      <div class="col-card">
+        <h3>Visual DNA</h3>
+        <p>Pacing, typography, color, transitions. Make every reel recognizable as CWT.</p>
+      </div>
+      <div class="col-card">
+        <h3>Homepage Hero</h3>
+        <p>Showcase lightning matchday clips (10-min delivery) and instant booking CTA.</p>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Consistent messaging</span>
+      <span class="tag">Recognizable style</span>
+      <span class="tag">Professional</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 6: Content Engine -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">4</div>
+      <h2>Instagram Content Engine</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p>Build <b>3 content pillars</b> to attract decision-makers (clubs, leagues, sponsors):</p>
+    <div class="three-col" style="margin-top: 1.5rem;">
+      <div class="grid-card">
+        <h4>Match Stories</h4>
+        <p>Fast-cut edits proving speed & drama. "10-min turnarounds" proof.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Player Journeys</h4>
+        <p>Cinematic player intros, season recaps. Content sponsors love.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Educational</h4>
+        <p>"How to grow your club digitally." Adds value for decision-makers.</p>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">3–5 reels/week</span>
+      <span class="tag">Decision-maker POV</span>
+      <span class="tag">Inbound leads</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 7: Section - Lead Generation -->
+  <section class="slide slide-section">
+    <h2>PHASE 2: Lead Generation</h2>
+    <p>Organic reach + outbound sales</p>
+  </section>
+
+
+  <!-- SLIDE 8: Multi-Platform & Partnerships -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">5</div>
+      <h2>Expand Beyond Instagram</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p>Repurpose top reels. Build partnerships. Reach more decision-makers.</p>
+    <ul>
+      <li><b>YouTube Shorts</b>—longer form storytelling + algorithm reach</li>
+      <li><b>LinkedIn carousels</b>—B2B positioning for league/brand execs</li>
+      <li><b>Creator collabs</b>—partner with sports creators & club accounts</li>
+      <li><b>Email campaigns</b>—nurture warm leads with playbooks</li>
+    </ul>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Multi-channel</span>
+      <span class="tag">Creator networks</span>
+      <span class="tag">Organic reach</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 9: Outbound Sales -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">6</div>
+      <h2>Reach Top Decision-Makers</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p><b>Don't wait for inbound.</b> Target: Club heads, league producers, sponsors.</p>
+    <ul>
+      <li><b>LinkedIn DMs</b>—personalized 15-sec message + recent work example</li>
+      <li><b>Cold emails</b>—specific tournament/club + "free audit" offer</li>
+      <li><b>Phone calls</b>—ask for referral: "Hey, guide me to the right person?"</li>
+      <li><b>Live events</b>—tournaments, awards, associations. Meet decision-makers directly.</li>
+    </ul>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Targeted outreach</span>
+      <span class="tag">Warm leads</span>
+      <span class="tag">High close rate</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 10: Lead Funnels -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">7</div>
+      <h2>Simple Lead Funnels</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p>Convert followers into warm leads with predictable, low-friction funnels:</p>
+    <div class="three-col" style="margin-top: 1.5rem;">
+      <div class="grid-card">
+        <h4>Free Audit</h4>
+        <p>DM: "Send best clip. I'll give 3 ways to boost views in 5 min."</p>
+      </div>
+      <div class="grid-card">
+        <h4>Playbook PDF</h4>
+        <p>Lead magnet: "How we grew club reels to 100k views." Download via email.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Quick Call</h4>
+        <p>Book 15-min discovery. Pitch one productized pack. Friction-free booking.</p>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Low friction</span>
+      <span class="tag">Lead magnet</span>
+      <span class="tag">Warm handoff</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 11: Section - Sales & Scaling -->
+  <section class="slide slide-section">
+    <h2>PHASE 3: Sales & Scaling</h2>
+    <p>Productization, retainers, pan-India expansion</p>
+  </section>
+
+
+  <!-- SLIDE 12: Productized Packs -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">8</div>
+      <h2>Productized Service Packs</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p>Replace "custom quotes" with <b>3 clear, fast-to-close packs</b>:</p>
+    <div class="three-col" style="margin-top: 1.5rem;">
+      <div class="grid-card">
+        <h4>Lightning Matchday</h4>
+        <p>10-min turnaround. Highlights + posts. Fixed scope. Get it while the game's still fresh.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Season Storytelling</h4>
+        <p>Monthly retainer. Player intros, season recap, sponsor features.</p>
+      </div>
+      <div class="grid-card">
+        <h4>Hero Films</h4>
+        <p>Tournament openers, sponsor intros, cinematic pieces that build brands.</p>
+      </div>
+    </div>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Fixed scope</span>
+      <span class="tag">Clear packages</span>
+      <span class="tag">Faster closes</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 13: Retainers & Anchors -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">9</div>
+      <h2>Lock In Anchor Retainers</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p><b>Goal: 3 anchor retainers</b> to build recurring revenue and prove the model.</p>
+    <ul>
+      <li>Pick 3 best past clients + 3 warm leads</li>
+      <li>Offer: "Season-long retainer = predictable budget + our best team"</li>
+      <li>Prove the model with results (turnaround time, reach, engagement)</li>
+      <li>Use success to expand to other clubs, academies, leagues nationwide</li>
+    </ul>
+    <div class="tags-row" style="margin-top: 1.5rem;">
+      <span class="tag">Recurring revenue</span>
+      <span class="tag">Proof of concept</span>
+      <span class="tag">Pan-India launch pad</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 14: Client Advocacy -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">10</div>
+      <h2>Client Referrals & Testimonials</h2>
+    </div>
+    <div class="accent-bar"></div>
+    <p>Turn satisfied clients into <b>active promoters</b> who bring in new business.</p>
+    <div class="three-col" style="margin-top: 1.5rem;">
+      <div class="grid-card">
+        <h4>Ask for Referrals</h4>
+        <p>After delivery: "Who else in your network needs fast sports content?"</p>
+      </div>
+      <div class="grid-card">
+        <h4>Video Testimonials</h4>
+        <p>Get clients on camera talking about speed, quality, results. Use everywhere.</p>
+      </div>
+  </section>
+
+
+  <!-- SLIDE 15: Action Plan -->
+  <section class="slide slide-content">
+    <div class="slide-header">
+      <div class="step-num">11</div>
+      <h2>What to Do Next</h2>
+    </div>
+    <div class="accent-bar"></div>
+ <p><b>Step 1:</b> Redesign website, refresh Instagram bio, revive Facebook page.</p>
+    <p><b>Step 2:</b> Launch content calendar (3–5 reels/week). Post client success story.</p>
+    <p><b>Step 3:</b> Start outbound: LinkedIn DMs/day + cold emails. Nurture leads with free audits.</p>
+    <div class="tags-row" style="margin-top: 2rem;">
+      <span class="tag">Week 1: Platforms</span>
+      <span class="tag">Week 3: Content</span>
+      <span class="tag">Week 5: Outbound</span>
+      <span class="tag">Week 12: First retainer</span>
+    </div>
+  </section>
+
+
+  <!-- SLIDE 16: Closing -->
+  <section class="slide slide-closing">
+    <h2>Let's Scale CWT</h2>
+  </section>
+
+
+</body>
+</html>
